@@ -1,3 +1,4 @@
+using System;
 using CatalogApi.Entities;
 using CatalogApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +18,27 @@ namespace CatalogApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Item> GetItems()
+        public ActionResult<IEnumerable<Item>> GetItems()
         {
             var items = repository.GetItems();
 
-            return items;
+            return Ok(items);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<Item> GetItem(Guid id)
+        {
+
+            Console.WriteLine("ID RECIEVED: ", id);
+
+            var item = repository.GetItem(id);
+
+            if (item is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(item);
         }
     }
 }
