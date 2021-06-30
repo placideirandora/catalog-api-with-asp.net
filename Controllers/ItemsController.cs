@@ -1,8 +1,8 @@
 using System;
 using CatalogApi.Entities;
-using CatalogApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using CatalogApi.Repositories.Interfaces;
 
 namespace CatalogApi.Controllers
 {
@@ -10,17 +10,17 @@ namespace CatalogApi.Controllers
     [Route("items")]
     public class ItemsController : ControllerBase
     {
-        private readonly InMemoryItemsRepository repository;
+        private readonly IInMemoryItemsRepository _repository;
 
-        public ItemsController()
+        public ItemsController(IInMemoryItemsRepository repository)
         {
-            repository = new InMemoryItemsRepository();
+            _repository = repository;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Item>> GetItems()
         {
-            var items = repository.GetItems();
+            var items = _repository.GetItems();
 
             return Ok(items);
         }
@@ -29,9 +29,7 @@ namespace CatalogApi.Controllers
         public ActionResult<Item> GetItem(Guid id)
         {
 
-            Console.WriteLine("ID RECIEVED: ", id);
-
-            var item = repository.GetItem(id);
+            var item = _repository.GetItem(id);
 
             if (item is null)
             {
