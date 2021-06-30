@@ -1,5 +1,6 @@
 using System;
-using CatalogApi.Entities;
+using System.Linq;
+using CatalogApi.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using CatalogApi.Repositories.Interfaces;
@@ -18,15 +19,15 @@ namespace CatalogApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Item>> GetItems()
+        public ActionResult<IEnumerable<GetItemDto>> GetItems()
         {
-            var items = _repository.GetItems();
+            var items = _repository.GetItems().Select(item => item.AsDto());
 
             return Ok(items);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Item> GetItem(Guid id)
+        public ActionResult<GetItemDto> GetItem(Guid id)
         {
 
             var item = _repository.GetItem(id);
@@ -36,7 +37,7 @@ namespace CatalogApi.Controllers
                 return NotFound();
             }
 
-            return Ok(item);
+            return Ok(item.AsDto());
         }
     }
 }
