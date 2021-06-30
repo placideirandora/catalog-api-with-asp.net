@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>catalog_api_with_asp.net</RootNamespace>
+    <RootNamespace>CatalogApi</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
