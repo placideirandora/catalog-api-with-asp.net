@@ -2,10 +2,11 @@ using System;
 using System.Linq;
 using CatalogApi.Entities;
 using System.Collections.Generic;
+using CatalogApi.Repositories.Interfaces;
 
 namespace CatalogApi.Repositories
 {
-    public class InMemoryItemsRepository
+    public class InMemoryItemsRepository : IInMemoryItemsRepository
     {
         private readonly List<Item> items = new()
         {
