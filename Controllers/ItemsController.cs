@@ -12,9 +12,9 @@ namespace CatalogApi.Controllers
     [Route("items")]
     public class ItemsController : ControllerBase
     {
-        private readonly IInMemoryItemsRepository _repository;
+        private readonly IMongoDbItemsRepository _repository;
 
-        public ItemsController(IInMemoryItemsRepository repository)
+        public ItemsController(IMongoDbItemsRepository repository)
         {
             _repository = repository;
         }
