@@ -1,8 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>CatalogApi</RootNamespace>
+    <UserSecretsId>e3b3fc6c-82ac-4f44-87b3-3d86c49f084f</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
