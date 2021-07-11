@@ -5,6 +5,7 @@ using CatalogApi.Entities;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 using CatalogApi.Repositories.Interfaces;
 
 namespace CatalogApi.Controllers
@@ -13,10 +14,12 @@ namespace CatalogApi.Controllers
     [Route("items")]
     public class ItemsController : ControllerBase
     {
+        private readonly ILogger<ItemsController> _logger;
         private readonly IMongoDbItemsRepository _repository;
 
-        public ItemsController(IMongoDbItemsRepository repository)
+        public ItemsController(IMongoDbItemsRepository repository, ILogger<ItemsController> logger)
         {
+            _logger = logger;
             _repository = repository;
         }
 
@@ -24,6 +27,8 @@ namespace CatalogApi.Controllers
         public async Task<ActionResult<IEnumerable<GetItemDto>>> GetItemsAsync()
         {
             var items = (await _repository.GetItemsAsync()).Select(item => item.AsDto());
+
+            _logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")}: Retrieved {items.Count()} items.");
 
             return Ok(items);
         }
@@ -93,4 +98,4 @@ namespace CatalogApi.Controllers
             return NoContent();
         }
     }
-} 
+}
