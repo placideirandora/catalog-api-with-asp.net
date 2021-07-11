@@ -4,8 +4,8 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Net.Mime;
 using System.Text.Json;
-using CatalogApi.Settings;
-using CatalogApi.Repositories;
+using Catalog.Api.Settings;
+using Catalog.Api.Repositories;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http;
 using MongoDB.Bson.Serialization;
@@ -13,12 +13,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
-using CatalogApi.Repositories.Interfaces;
+using Catalog.Api.Repositories.Interfaces;
 using MongoDB.Bson.Serialization.Serializers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
-namespace CatalogApi
+namespace Catalog.Api
 {
     public class Startup
     {
@@ -50,7 +50,7 @@ namespace CatalogApi
             services.AddSingleton<IMongoDbItemsRepository, MongoDbItemsRepository>();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CatalogApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Catalog.Api", Version = "v1" });
             });
             services.AddHealthChecks()
                 .AddMongoDb(mongoDbSettings.ConnectionString, name: "mongodb",
@@ -65,7 +65,7 @@ namespace CatalogApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CatalogApi v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Catalog.Api v1"));
                 app.UseHttpsRedirection();
             }
 

@@ -1,14 +1,14 @@
 using System;
 using System.Linq;
-using CatalogApi.Dtos;
-using CatalogApi.Entities;
+using Catalog.Api.Dtos;
+using Catalog.Api.Entities;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using CatalogApi.Repositories.Interfaces;
+using Catalog.Api.Repositories.Interfaces;
 
-namespace CatalogApi.Controllers
+namespace Catalog.Api.Controllers
 {
     [ApiController]
     [Route("items")]

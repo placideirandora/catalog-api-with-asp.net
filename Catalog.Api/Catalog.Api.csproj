@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>CatalogApi</RootNamespace>
+    <RootNamespace>Catalog.Api</RootNamespace>
     <UserSecretsId>e3b3fc6c-82ac-4f44-87b3-3d86c49f084f</UserSecretsId>
   </PropertyGroup>
 

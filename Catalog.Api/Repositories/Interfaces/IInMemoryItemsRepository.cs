@@ -1,9 +1,9 @@
 using System;
-using CatalogApi.Entities;
+using Catalog.Api.Entities;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace CatalogApi.Repositories.Interfaces
+namespace Catalog.Api.Repositories.Interfaces
 {
     public interface IInMemoryItemsRepository
     {
