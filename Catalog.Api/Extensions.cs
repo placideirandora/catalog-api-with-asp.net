@@ -1,5 +1,5 @@
-using Catalog.Api.Dtos;
 using Catalog.Api.Entities;
+using static Catalog.Api.Dtos;
 
 namespace Catalog.Api
 {
@@ -7,13 +7,7 @@ namespace Catalog.Api
     {
         public static GetItemDto AsDto(this Item item)
         {
-            return new GetItemDto
-            {
-                Id = item.Id,
-                Name = item.Name,
-                Price = item.Price,
-                CreatedDate = item.CreatedDate
-            };
+            return new GetItemDto(item.Id, item.Name, item.Description, item.Price, item.CreatedDate);
         }
     }
 }

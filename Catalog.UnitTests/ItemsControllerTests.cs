@@ -2,10 +2,10 @@ using Moq;
 using Xunit;
 using System;
 using FluentAssertions;
-using Catalog.Api.Dtos;
 using Catalog.Api.Entities;
 using System.Threading.Tasks;
 using Catalog.Api.Controllers;
+using static Catalog.Api.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Catalog.Api.Repositories.Interfaces;
@@ -48,7 +48,7 @@ namespace Catalog.UnitTests
             var result = await controller.GetItemAsync(Guid.NewGuid());
 
             // Assert
-            result.Value.Should().BeEquivalentTo(expectedItem, options => options.ComparingByMembers<Item>());
+            result.Value.Should().BeEquivalentTo(expectedItem);
         }
 
         [Fact]
@@ -65,14 +65,14 @@ namespace Catalog.UnitTests
             var actualItems = await controller.GetItemsAsync();
 
             // Assert
-            actualItems.Should().BeEquivalentTo(expectedItems, options => options.ComparingByMembers<Item>());
+            actualItems.Should().BeEquivalentTo(expectedItems);
         }
 
         [Fact]
         public async Task CreateItemAsync_WithItemToCreate_ReturnsCreatedItem()
         {
             // Arrange
-            var itemToCreate = new CreateItemDto() { Name = Guid.NewGuid().ToString(), Price = rand.Next(1000) };
+            var itemToCreate = new CreateItemDto(Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), rand.Next(1000));
 
             var controller = new ItemsController(repositoryStub.Object, loggerStub.Object);
 
@@ -95,7 +95,7 @@ namespace Catalog.UnitTests
             // Arrange
             repositoryStub.Setup(repo => repo.GetItemAsync(It.IsAny<Guid>())).ReturnsAsync((Item)null);
 
-            var itemToUpdate = new UpdateItemDto() { Name = Guid.NewGuid().ToString(), Price = rand.Next(1000) };
+            var itemToUpdate = new UpdateItemDto(Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), rand.Next(1000));
 
             var controller = new ItemsController(repositoryStub.Object, loggerStub.Object);
 
@@ -115,7 +115,7 @@ namespace Catalog.UnitTests
             repositoryStub.Setup(repo => repo.GetItemAsync(It.IsAny<Guid>())).ReturnsAsync(existingItem);
 
             var itemId = existingItem.Id;
-            var itemToUpdate = new UpdateItemDto() { Name = Guid.NewGuid().ToString(), Price = existingItem.Price + 3 };
+            var itemToUpdate = new UpdateItemDto(Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), existingItem.Price + 3);
 
             var controller = new ItemsController(repositoryStub.Object, loggerStub.Object);
 
