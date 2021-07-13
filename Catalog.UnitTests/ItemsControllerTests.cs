@@ -2,6 +2,7 @@ using Moq;
 using Xunit;
 using System;
 using FluentAssertions;
+using Catalog.Api.Dtos;
 using Catalog.Api.Entities;
 using System.Threading.Tasks;
 using Catalog.Api.Controllers;
@@ -65,6 +66,27 @@ namespace Catalog.UnitTests
 
             // Assert
             actualItems.Should().BeEquivalentTo(expectedItems, options => options.ComparingByMembers<Item>());
+        }
+
+        [Fact]
+        public async Task CreateItemAsync_WithItemToCreate_ReturnsCreatedItem()
+        {
+            // Arrange
+            var itemToCreate = new CreateItemDto() { Name = Guid.NewGuid().ToString(), Price = rand.Next(1000) };
+
+            var controller = new ItemsController(repositoryStub.Object, loggerStub.Object);
+
+            // Act
+            var result = await controller.CreateItemAsync(itemToCreate);
+
+            // Assert
+            var createdItem = (result.Result as CreatedAtActionResult).Value as GetItemDto;
+
+            itemToCreate.Should().BeEquivalentTo(createdItem,
+                 options => options.ComparingByMembers<GetItemDto>().ExcludingMissingMembers());
+
+            createdItem.Id.Should().NotBeEmpty();
+            createdItem.CreatedDate.Should().BeCloseTo(DateTimeOffset.UtcNow, 1000);
         }
 
 
