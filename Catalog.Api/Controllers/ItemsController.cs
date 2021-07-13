@@ -24,13 +24,13 @@ namespace Catalog.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GetItemDto>>> GetItemsAsync()
+        public async Task<IEnumerable<GetItemDto>> GetItemsAsync()
         {
             var items = (await _repository.GetItemsAsync()).Select(item => item.AsDto());
 
             _logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")}: Retrieved {items.Count()} items.");
 
-            return Ok(items);
+            return items;
         }
 
         [HttpGet("{id}")]
