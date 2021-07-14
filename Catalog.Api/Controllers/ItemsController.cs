@@ -24,9 +24,14 @@ namespace Catalog.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<GetItemDto>> GetItemsAsync()
+        public async Task<IEnumerable<GetItemDto>> GetItemsAsync(string name = null)
         {
             var items = (await _repository.GetItemsAsync()).Select(item => item.AsDto());
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                items = items.Where(item => item.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
+            }
 
             _logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")}: Retrieved {items.Count()} items.");
 
@@ -95,5 +100,6 @@ namespace Catalog.Api.Controllers
 
             return NoContent();
         }
+
     }
 }
