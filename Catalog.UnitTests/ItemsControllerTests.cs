@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Catalog.Api.Controllers;
 using static Catalog.Api.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Catalog.Api.Repositories.Interfaces;
 
@@ -156,6 +157,31 @@ namespace Catalog.UnitTests
 
             // Assert
             result.Should().BeOfType<NoContentResult>();
+        }
+
+        [Fact]
+        public async Task GetItemsAsync_WithMatchingItems_ReturnsMatchingItems()
+        {
+            // Arrange
+            var allItems = new[]
+            {
+                new Item() { Name = "Potion" },
+                new Item() { Name = "Antidote" },
+                new Item() { Name = "Hi-Potion" },
+
+             };
+
+            var nameToMatch = "Potion";
+
+            repositoryStub.Setup(repo => repo.GetItemsAsync()).ReturnsAsync(allItems);
+
+            var controller = new ItemsController(repositoryStub.Object, loggerStub.Object);
+
+            // Act
+            IEnumerable<GetItemDto> foundItems = await controller.GetItemsAsync(nameToMatch);
+
+            // Assert
+            foundItems.Should().OnlyContain(item => item.Name == allItems[0].Name || item.Name == allItems[2].Name);
         }
 
 
