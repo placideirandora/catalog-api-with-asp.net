@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: catalog-api-container
-          image: placideirandora/catalog_api:v1.1
+          image: placideirandora/catalog_api:v1.3
           resources:
             limits:
               memory: "128Mi"
