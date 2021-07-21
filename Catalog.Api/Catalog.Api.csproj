@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Catalog.Api</RootNamespace>
+    <UserSecretsId>e3b3fc6c-82ac-4f44-87b3-3d86c49f084f</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDb.Driver" Version="2.12.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="AspNetCore.HealthChecks.MongoDb" Version="5.0.1" />
+  </ItemGroup>
+
+</Project>

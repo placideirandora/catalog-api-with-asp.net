@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  app:
+    depends_on:
+      - db
+    image: ${APP_IMAGE}
+    ports:
+      - ${APP_EXT_PORT}:${APP_INT_PORT}
+    environment:
+      MongoDbSettings:Host: ${HOST}
+      MongoDbSettings:Port: ${DB_INT_PORT}
+      MongoDbSettings:Password: ${DB_PASSWORD}
+      MongoDbSettings:User: ${DB_USERNAME}
+
+  db:
+    image: mongo
+    volumes:
+      - mongodbdata:/data/db
+    ports:
+      - ${DB_EXT_PORT}:${DB_INT_PORT}
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+
+volumes:
+  mongodbdata:
