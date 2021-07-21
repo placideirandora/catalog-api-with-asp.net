@@ -10,7 +10,7 @@ services:
     environment:
       MongoDbSettings:Host: ${HOST}
       MongoDbSettings:Port: ${DB_INT_PORT}
-      MongoDbSettings:Password: ${BB_PASSWORD}
+      MongoDbSettings:Password: ${DB_PASSWORD}
       MongoDbSettings:User: ${DB_USERNAME}
 
   db:
